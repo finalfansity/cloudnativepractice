@@ -16,6 +16,7 @@ func Healthz(w http.ResponseWriter, req *http.Request) {
 // worker
 func Worker(w http.ResponseWriter, req *http.Request)  {
 	//获取request heaser 然后写入并返回
+	os.Setenv("VERSION", "123")
 	for k, v := range req.Header{
 		s := ""
 		for _, i := range v{
@@ -33,7 +34,7 @@ func Worker(w http.ResponseWriter, req *http.Request)  {
 }
 
 func main() {
-	http.HandleFunc("/worker", Worker)
+	http.HandleFunc("/", Worker)
 	http.HandleFunc("/healthz", Healthz)
 	err := http.ListenAndServe(":80", nil)
 	if err != nil {
