@@ -28,6 +28,8 @@ spec:
               value: debug
             - name: VERSION
               value: beta
+            - name: CONFIGFROM
+              value: local
           image: douma515253/httpserver:v1
           imagePullPolicy: IfNotPresent
           livenessProbe:
