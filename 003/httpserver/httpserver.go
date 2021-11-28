@@ -46,7 +46,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("VERSION", version)
 	statusCode := 200
 	w.WriteHeader(statusCode)
-	//log.Printf("[time: %s]-host: %s-method: %s-code: %d", reqTime, r.RemoteAddr, r.Method, statusCode)
+
 	logger.Println("host: "+r.RemoteAddr+" method: "+r.Method+" code: "+ strconv.Itoa(statusCode))
 	s := viper.GetString("db.host")
 	l := viper.GetString("info")
@@ -55,5 +55,6 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 func Healthz(w http.ResponseWriter, r *http.Request) {
 	statusCode := "200"
+	logger.Debug("healthz check ok")
 	w.Write([]byte(statusCode))
 }
