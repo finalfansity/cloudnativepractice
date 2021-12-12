@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: httpserver
+  namespace: default
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              serviceName: httpserver
+              servicePort: 8080
+            path: /
+---
+#  可以在ingress上配置tls证书来实现单个服务路由加密
+#  也可以在全局出口ingress-controller上启动tls加密，这样单个服务无需再使用加密
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: httpserver
+  namespace: default
+spec:
+  rules:
+    - host: test.com
+      http:
+        paths:
+          - backend:
+              serviceName: httpserver
+              servicePort: 8080
+            path: /
+  tls:
+    - hosts:
+        - test.com
+      secretName: testdomain
